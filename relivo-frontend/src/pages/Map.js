@@ -43,3 +43,14 @@ function Map() {
 }
 
 export default Map;
+
+// const MapPage = () => (
+//   <div className="p-6">
+//     <h2 className="text-xl font-bold">Disaster Risk & Donations Map 🗺️</h2>
+//     <div className="mt-4 border h-[500px] flex items-center justify-center">
+//       Google Maps integration coming soon...
+//     </div>
+//   </div>
+// );
+
+// export default MapPage;

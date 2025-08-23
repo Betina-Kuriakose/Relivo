@@ -3,13 +3,8 @@ const Donation = require('../models/Donation');
 // Create a new donation
 exports.createDonation = async (req, res) => {
   try {
-    const { donorName, type, amount } = req.body;
-
-    if (!donorName || !type || !amount) {
-      return res.status(400).json({ error: 'All fields are required.' });
-    }
-
-    const donation = await Donation.create({ donorName, type, amount });
+    const donation = new Donation(req.body);
+    await donation.save();
     res.status(201).json(donation);
   } catch (error) {
     console.error('Error creating donation:', error);
@@ -17,10 +12,10 @@ exports.createDonation = async (req, res) => {
   }
 };
 
-// Get all donations (admin/admin transparency view)
+// Get all donations
 exports.getAllDonations = async (req, res) => {
   try {
-    const donations = await Donation.findAll();
+    const donations = await Donation.find();
     res.json(donations);
   } catch (error) {
     console.error('Error fetching donations:', error);
@@ -34,7 +29,7 @@ exports.updateDonationStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
-    const donation = await Donation.findByPk(id);
+    const donation = await Donation.findById(id);
     if (!donation) {
       return res.status(404).json({ error: 'Donation not found' });
     }
