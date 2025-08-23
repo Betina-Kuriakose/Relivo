@@ -1,105 +1,150 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 
-// Donation, event, and transparency log mock data
-const initialTasks = [
-  { text: "Donate $100 for Flood Relief", status: "Verified" },
-  { text: "Donate food supplies for Earthquake Victims", status: "Pending" },
-  { text: "Volunteer for Rescue Mission", status: "Verified" }
+// Simulated counters
+function useCounter(target, speed = 18) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (value < target) {
+      const inc = Math.ceil(target / 60);
+      const timeout = setTimeout(() => setValue(Math.min(value + inc, target)), speed);
+      return () => clearTimeout(timeout);
+    }
+  }, [value, target, speed]);
+  return value.toLocaleString();
+}
+
+const timelineData = [
+  { step: 'Donation Received', desc: '₹500 by John Doe for Bangalore North Flood' },
+  { step: 'Donation Verified', desc: 'Verified instantly by AI' },
+  { step: 'Supplies Procured', desc: 'Food packets acquired from supplier' },
+  { step: 'Delivered', desc: 'Food packet delivered to family in Bangalore North ✅' }
+];
+
+const mapPins = [
+  { city: "Bangalore North", status: "delivered", left: "30%", top: "55%" },
+  { city: "Bangalore South", status: "in-progress", left: "45%", top: "65%" },
+  { city: "Mysore", status: "pending", left: "60%", top: "70%" }
 ];
 
 export default function App() {
-  const [input, setInput] = useState('');
-  const [tasks, setTasks] = useState(initialTasks);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (input.trim()) {
-      setTasks([...tasks, { text: input, status: "Pending" }]);
-      setInput('');
-    }
-  };
-
-  const handleDelete = (idx) => {
-    setTasks(tasks.filter((_, i) => i !== idx));
-  };
+  // Counters
+  const affected = useCounter(12456);
+  const donations = useCounter(743);
+  const funds = useCounter(2783400); // In INR
+  const supplies = useCounter(3175);
 
   return (
-    <div className="app-root">
-      {/* Header */}
-      <header className="header">
-        <div className="logo">Relivo</div>
+    <div className="page-root">
+      {/* HEADER */}
+      <header className="header-bar">
+        <div className="logoword">
+          <span className="icon-shield">🛡️</span>
+          <span className="brand">Relivo</span>
+        </div>
         <nav>
-          <a href="#" className="nav-btn">Get started</a>
-          <a href="#" className="nav-btn">Prepare</a>
-          <a href="#" className="nav-btn">Pricing</a>
-          <a href="#" className="nav-btn">Sign in / up</a>
-          <button className="cta">Get full access</button>
+          <a href="#" className="nav-btn">How it Works</a>
+          <a href="#" className="nav-btn">Live Map</a>
+          <a href="#" className="nav-btn">About</a>
+          <button className="donate-btn">Donate Now</button>
         </nav>
       </header>
 
-      {/* Announcement Banner */}
-      <div className="banner">
-        Enjoy 20% off on all plans for new donors! Transparency powered by AI.
-      </div>
+      {/* HERO SECTION */}
+      <section className="hero-container">
+        <div className="hero-textblob">
+          <h1>AI-Powered Disaster Relief & Donation Transparency</h1>
+          <p>
+            Real-time tracking, total transparency, and verified positive impact for victims.<br />
+            Trust. Verify. Donate with confidence.
+          </p>
+          <button className="donate-btn hero-cta">Donate Now</button>
+        </div>
+        <div className="hero-image"></div>
+      </section>
 
-      {/* Hero Section */}
-      <section className="hero-section">
-        <h1>AI-Powered Disaster Relief</h1>
-        <p>Promoting Donation Transparency and Real-Time Impact Reporting.</p>
-        <button className="hero-cta">Get started now</button>
-        <div className="stats">
-          <span>1M+ donors verified</span> | <span>200+ disasters tracked</span>
+      {/* LIVE STATS | INFOGRAPHIC */}
+      <section className="stats-section">
+        <div className="stat-card emphasis">
+          <span className="stat-icon">👥</span>
+          <div className="stat-num">{affected}</div>
+          <div className="stat-label">People Affected</div>
+        </div>
+        <div className="stat-card">
+          <span className="stat-icon">💸</span>
+          <div className="stat-num">{donations}</div>
+          <div className="stat-label">Donations Made</div>
+        </div>
+        <div className="stat-card">
+          <span className="stat-icon">₹</span>
+          <div className="stat-num">{funds}</div>
+          <div className="stat-label">Total Funds Raised</div>
+        </div>
+        <div className="stat-card">
+          <span className="stat-icon">📦</span>
+          <div className="stat-num">{supplies}</div>
+          <div className="stat-label">Supplies Delivered</div>
         </div>
       </section>
 
-      {/* Main Layout */}
-      <div className="main-layout">
-        {/* Left Sidebar */}
-        <aside className="sidebar">
-          <div className="tab active">Description</div>
-          <div className="tab">Impact Stats</div>
-          <div className="tab">Transparency Logs</div>
-          <div className="tab">AI Insights</div>
-        </aside>
-
-        {/* Center Panel */}
-        <main className="center-panel">
-          <h2>Live Disaster Events</h2>
-          <div className="panel">
-            <h3>Flood in California</h3>
-            <p>AI verifies all donations and relief actions in real-time.</p>
-            <ul className="event-list">
-              <li>Food Distributed <span className="verified">Verified</span></li>
-              <li>Medical Aid Sent <span className="pending">Pending</span></li>
-              <li>Volunteers Deployed <span className="verified">Verified</span></li>
-            </ul>
+      {/* DONATION TRACKING MAP */}
+      <section className="map-section">
+        <h2 className="section-heading">Donation Tracking Map</h2>
+        <div className="map-visual">
+          <div className="fake-map-bg"></div>
+          {/* Pins */}
+          {mapPins.map((pin, i) => (
+            <div
+              key={i}
+              className={`map-pin ${pin.status}`}
+              style={{ left: pin.left, top: pin.top }}
+            >
+              <span className="pin-dot"></span>
+              <span className="pin-label">{pin.city}</span>
+            </div>
+          ))}
+          <div className="legend-bar">
+            <span><span className="dot delivered"></span> Delivered</span>
+            <span><span className="dot in-progress"></span> In Progress</span>
+            <span><span className="dot pending"></span> Pending</span>
           </div>
-        </main>
+        </div>
+      </section>
 
-        {/* Right Panel */}
-        <section className="right-panel">
-          <h2>Contribution/Action Panel</h2>
-          <form onSubmit={handleSubmit} className="input-form">
-            <input
-              type="text"
-              value={input}
-              placeholder="Add your relief action or donation"
-              onChange={(e) => setInput(e.target.value)}
-            />
-            <button type="submit">Submit</button>
-          </form>
-          <ul className="task-list">
-            {tasks.map((task, idx) => (
-              <li key={idx}>
-                {task.text}
-                <span className={task.status === "Verified" ? "verified" : "pending"}>{task.status}</span>
-                <button className="delete-btn" onClick={() => handleDelete(idx)}>Delete</button>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
+      {/* TIMELINE */}
+      <section className="timeline-section">
+        <h2 className="section-heading">Donation Transparency Timeline</h2>
+        <div className="timeline">
+          {timelineData.map((item, idx) => (
+            <div className="timeline-step" key={idx}>
+              <div className={`timeline-circle ${item.step === "Delivered" ? "delivered" : "pending"}`}></div>
+              <div className="timeline-content">
+                <div className="step-title">{item.step}</div>
+                <div className="step-desc">{item.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* DISASTER PREDICTION WIDGET */}
+      <section className="prediction-section">
+        <h2 className="section-heading">Disaster Prediction</h2>
+        <div className="prediction-card">
+          <div className="pred-title">Flood risk in Bangalore North (Next 48 hrs)</div>
+          <div className="pred-bar-bg">
+            <div className="pred-bar-fill" style={{ width: "72%" }}></div>
+          </div>
+          <div className="pred-status">Severe risk for low-lying areas. AI model refreshes every hour.</div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="footer">
+        <span>© {new Date().getFullYear()} Relivo · AI Transparency for Disaster Relief</span>
+      </footer>
     </div>
+    
+    
   );
 }
