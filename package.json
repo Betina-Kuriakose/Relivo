@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/Betina-Kuriakose/Relivo/issues"
   },
-  "homepage": "https://github.com/Betina-Kuriakose/Relivo#readme"
+  "homepage": "https://github.com/Betina-Kuriakose/Relivo#readme",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.1",
+    "jsonwebtoken": "^9.0.2"
+  }
 }
