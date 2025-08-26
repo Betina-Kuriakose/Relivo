@@ -1,2 +1,2 @@
-# smart-city-emergency-response-app
-AI powered platform designed to improve emergency response efficiency in urban environments. 
+# Relivo, A platform where we can assure your donations ends up in the needful hand #save Lives
+Relivo is a full-stack web application for connecting individuals and NGOs during relief efforts. With secure authentication, donation tracking, and easy communication features, it helps users request or offer aid efficiently. It also predicts the future onset of diasters that could happen in the future, The NGO's can track the movements of the resources and money donated so that it ends up in the right hand, 
