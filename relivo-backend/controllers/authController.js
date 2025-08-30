@@ -28,10 +28,16 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password, role } = req.body;
+    console.log('Login request:', { email, role });
+
     const user = await User.findOne({ email, role });
+    console.log('User found:', user ? true : false);
+
     if (!user) return res.status(404).json({ error: 'User not found' });
 
     const isMatch = await user.comparePassword(password);
+    console.log('Password match:', isMatch);
+
     if (!isMatch) return res.status(400).json({ error: 'Invalid credentials' });
 
     const token = generateToken(user);
@@ -41,3 +47,4 @@ exports.login = async (req, res) => {
     res.status(500).json({ error: 'Login failed' });
   }
 };
+
