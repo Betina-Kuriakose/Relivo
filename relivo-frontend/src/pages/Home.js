@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './Navbar'; // Adjust the path if Navbar.js is in a different folder
 import './Home.css';
 
 // Simulated counters
@@ -37,9 +36,7 @@ export default function Home() {
   const supplies = useCounter(3175);
 
   return (
-    <>
-      <Navbar /> {/* Added Navbar component here */}
-      <div className="page-root">
+    <div className="page-root">
         {/* Existing Home content */}
 
         {/* HERO SECTION */}
@@ -135,7 +132,6 @@ export default function Home() {
         <footer className="footer">
           <span>© {new Date().getFullYear()} Relivo · AI Transparency for Disaster Relief</span>
         </footer>
-      </div>
-    </>
+    </div>
   );
 }
