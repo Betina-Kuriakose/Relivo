@@ -1,0 +1,38 @@
+/* Relivo Navbar Styles */
+.rlv-header {
+  /* already using tailwind utility classes; these add structure refinements */
+}
+
+.rlv-inner {
+  display: flex;
+  align-items: center;
+}
+
+/* Ensure consistent spacing between brand and links */
+.rlv-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
+}
+
+/* Improve Donate CTA visual separation */
+.rlv-links a[href="/donations"].rlv-donate {
+  margin-left: 8px;
+}
+
+/* Mobile toggle alignment */
+.rlv-mobile button {
+  display: inline-flex;
+}
+
+/* Mobile panel spacing */
+.rlv-mobile-panel {
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.rlv-mobile-list a,
+.rlv-mobile-list button {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
