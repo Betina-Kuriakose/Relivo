@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
 import Donations from "./pages/Donations";
 import Map from "./pages/Map";
@@ -14,6 +15,9 @@ import PrivateRoute from './components/PrivateRoute';
 function App() {
   return (
     <Router>
+      {/* Sidebar layout */}
+      <Sidebar />
+      <div className="page-with-sidebar">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -39,6 +43,7 @@ function App() {
           }
         />
       </Routes>
+      </div>
     </Router>
   );
 }

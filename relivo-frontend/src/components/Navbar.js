@@ -69,7 +69,7 @@ function Navbar() {
             <NavLink to="/chatbot">Chatbot</NavLink>
             <Link
               to="/donations"
-              className="ml-2 px-4 py-2 rounded-md bg-amber-400 text-blue-900 font-semibold hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-white/60 transition"
+              className="rlv-donate ml-2 px-4 py-2 rounded-md bg-amber-400 text-blue-900 font-semibold hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-white/60 transition"
               onClick={() => setMenuOpen(false)}
             >
               Donate
