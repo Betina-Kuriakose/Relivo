@@ -7,6 +7,7 @@ import Donations from "./pages/Donations";
 import Map from "./pages/Map";
 import Chatbot from "./pages/Chatbot";
 import UserLogin from './pages/UserLogin';
+import UserSignup from './pages/UserSignup';
 import NGOLogin from './pages/NGOLogin';
 import UserDashboard from './pages/UserDashboard';
 import NGODashboard from './pages/NGODashboard';
@@ -15,12 +16,14 @@ import PrivateRoute from './components/PrivateRoute';
 function AppContent() {
   const location = useLocation();
   const isLoginPage = location.pathname.includes('/login');
+  const isSignupPage = location.pathname.includes('/signup');
 
-  if (isLoginPage) {
+  if (isLoginPage || isSignupPage) {
     return (
       <Routes>
         <Route path="/login/user" element={<UserLogin />} />
         <Route path="/login/ngo" element={<NGOLogin />} />
+        <Route path="/signup/user" element={<UserSignup />} />
       </Routes>
     );
   }
