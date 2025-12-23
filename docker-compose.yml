@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./relivo-backend
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      # Add your MongoDB connection string and other env vars here
+      # - MONGODB_URI=mongodb://mongo:27017/relivo
+    # volumes:
+    #   - ./relivo-backend:/app
+    #   - /app/node_modules
+    # Uncomment if you want to use a MongoDB container
+    # depends_on:
+    #   - mongo
+
+  frontend:
+    build:
+      context: ./relivo-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+    # For development, you might want to use a volume mount instead
+    # volumes:
+    #   - ./relivo-frontend:/app
+    #   - /app/node_modules
+
+  # Uncomment if you want to run MongoDB in Docker
+  # mongo:
+  #   image: mongo:latest
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - mongo-data:/data/db
+
+# volumes:
+#   mongo-data:
+
